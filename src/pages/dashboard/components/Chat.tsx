@@ -1,6 +1,9 @@
 import {  useState } from "react";
 import ChatInput from "../../../components/ChatInput";
 import useSpeechToText from "../../../hooks/useSpeechToText";
+import { generateProject } from "../api";
+import { useMutation } from "@tanstack/react-query";
+import { Loader } from "lucide-react";
 
 const Chat = () => {
   const [messages, setMessages] = useState<{ text: string; isUser: boolean; time: Date }[]>([]);
@@ -12,17 +15,22 @@ const Chat = () => {
     },
   }); 
 
+  const {mutate ,isPending} = useMutation({
+   mutationKey: ["chat"] ,
+    mutationFn: generateProject,
+  })
+
   // 💬 Send Message
   const sendMessage = () => {
     if (!input.trim()) return;
-
     setMessages((prev) => [...prev, {   text: input, isUser: true, time: new Date() }]);
+    mutate(input.trim())
     setInput("");
   };
 
   return (
     <div className="flex flex-col h-full w-full bg-gray-100 rounded shadow">
-      
+      {isPending && <Loader/>}
       {/* 🧾 Chat Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
   {messages.map(({ text, isUser, time }, i) => (

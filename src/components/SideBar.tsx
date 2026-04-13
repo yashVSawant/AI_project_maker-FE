@@ -13,6 +13,8 @@ const Sidebar = () => {
 },
 );
 
+const projects = data?.data || []
+
   return (
     <aside className="w-[200px] bg-gray-300 h-[calc(100vh-60px)] top-[60px]">
       <div className="flex items-center hover:text-white hover:bg-gray-500 gap-2 p-3 bg-gray-400 mb-3 cursor-pointer" onClick={() => navigate("add/project")}>
@@ -24,7 +26,7 @@ const Sidebar = () => {
   <nav className="flex font-semibold flex-col gap-2 p-2">
     {/* links */}
     {isFetching && <div>Loading...</div>}
-    {data?.length  && data.map((project) => (
+    {projects?.length  && projects.map((project:{id:string,name:string}) => (
       <a
         key={project.id}
         href={`/project/${project.id}`}

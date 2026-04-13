@@ -9,7 +9,10 @@ type ChatInputProps = {
     onSend: () => void;
 }
 
+
+
 const ChatInput = ({ listening, text, setText, startListening, stopListening, onSend }: ChatInputProps)=>{
+
     return <div className="border-t p-3 flex items-center gap-2 bg-white">
         
         {/* 🎤 Mic Button */}

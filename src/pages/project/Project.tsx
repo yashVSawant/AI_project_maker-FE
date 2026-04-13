@@ -6,17 +6,23 @@ import DraggableButton from "../../components/DragableButton";
 import { Pencil } from "lucide-react";
 
 const Project = () => {
-  const { editId } = useParams();
+  const { id ,editId } = useParams();
   const navigate = useNavigate();
 
-  const isEditMode = Boolean(editId); // If there's an editId, we're in edit mode, otherwise it's view mode
+  const isEditMode = Boolean(!id); // If there's an id, we're in view mode, otherwise it's edit mode
 
 const {data , isFetching} = useQuery({queryKey:["projects"], 
-  queryFn :getProject});
+  queryFn :()=>getProject(id!),
+  enabled:Boolean(id)
+});
+
+console.log("data",data?.data)
+  const compoents = data?.data?.components || null;
+
 
     return (
         <div className="w-full h-full bg-gray-200">
-          {isFetching || !data ? <div>Loading...</div> : <RenderComponent {...data} />}
+          {isFetching || !compoents ? <div>Loading...</div> : compoents.map(c=><RenderComponent {...c} />)}
           {!isEditMode && (
             <DraggableButton Icon={<Pencil size={20} />} onClick={() => navigate(`/edit/project/${editId}`)} />
           )}
