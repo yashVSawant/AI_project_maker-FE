@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "./api";
 import { useNavigate } from "react-router-dom";
-import { showToast } from "../../store/zustand.store";
+import { showToast } from "../../store/toast.store";
 
 type LoginFormInputs = {
   email: string;

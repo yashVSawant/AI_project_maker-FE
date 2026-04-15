@@ -4,6 +4,8 @@ export interface ComponentDTO {
     className?: string;
     children?: ComponentDTO[];
     text?: string;
+    id:string;
+    description?:string
 }
 
 type UnsafeTags =

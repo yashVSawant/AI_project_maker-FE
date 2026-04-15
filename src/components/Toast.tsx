@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useToastStore } from "../store/zustand.store";
+import { useToastStore } from "../store/toast.store";
 
 const Toast = () => {
   const { toast, clearToast } = useToastStore();
@@ -13,7 +13,6 @@ const Toast = () => {
     return () => clearTimeout(timer);
   }
 }, [toast, clearToast]);
-    console.log("toaster",toast)
   if (!toast) return null;
 
   return (

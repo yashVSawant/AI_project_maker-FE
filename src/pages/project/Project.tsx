@@ -10,21 +10,20 @@ const Project = () => {
   const navigate = useNavigate();
 
   const isEditMode = Boolean(!id); // If there's an id, we're in view mode, otherwise it's edit mode
-
-const {data , isFetching} = useQuery({queryKey:["projects"], 
-  queryFn :()=>getProject(id!),
+const projectId = id || editId
+const {data , isFetching} = useQuery({queryKey:["projects",projectId], 
+  queryFn :()=>getProject(projectId!),
   enabled:Boolean(id)
 });
 
-console.log("data",data?.data)
   const compoents = data?.data?.components || null;
 
 
     return (
         <div className="w-full h-full bg-gray-200">
-          {isFetching || !compoents ? <div>Loading...</div> : compoents.map(c=><RenderComponent {...c} />)}
+          {isFetching || !compoents ? <div>Loading...</div> : compoents.map(c=><RenderComponent {...c} key={c.id}/>)}
           {!isEditMode && (
-            <DraggableButton Icon={<Pencil size={20} />} onClick={() => navigate(`/edit/project/${editId}`)} />
+            <DraggableButton Icon={<Pencil size={20} />} onClick={() => navigate(`/edit/project/${projectId}`)} />
           )}
         </div>
         

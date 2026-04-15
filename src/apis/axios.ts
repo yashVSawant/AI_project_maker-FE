@@ -1,9 +1,9 @@
 import axios from "axios";
-import { showToast } from "../store/zustand.store";
+import { showToast } from "../store/toast.store";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:3000", // your backend URL
-  timeout: 10000,
+  timeout: 30000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -20,7 +20,6 @@ axiosInstance.interceptors.request.use((config) => {
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log("response",response)
     return response.data  // 👈 removes axios wrapper
   },
   (error) => {

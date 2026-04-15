@@ -4,10 +4,12 @@ import useSpeechToText from "../../../hooks/useSpeechToText";
 import { generateProject } from "../api";
 import { useMutation } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
+import { useProjectStore } from "../../../store/project.store";
 
 const Chat = () => {
   const [messages, setMessages] = useState<{ text: string; isUser: boolean; time: Date }[]>([]);
   const [input, setInput] = useState("");
+  const {setProjectId}= useProjectStore()
 
   const { listening, startListening, stopListening } = useSpeechToText({
     onResult: (text) => {
@@ -18,6 +20,10 @@ const Chat = () => {
   const {mutate ,isPending} = useMutation({
    mutationKey: ["chat"] ,
     mutationFn: generateProject,
+    onSuccess:(data)=>{
+      console.log(data)
+      if(data.projectId)setProjectId(data.projectId)
+    }
   })
 
   // 💬 Send Message
