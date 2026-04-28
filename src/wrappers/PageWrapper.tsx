@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 
-
 type PageWrapperProps = {
   title: string;
   children: React.ReactNode;

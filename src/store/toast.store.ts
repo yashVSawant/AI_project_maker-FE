@@ -17,6 +17,6 @@ export const useToastStore = create<ToastState>((set) => ({
   clearToast: () => set({ toast: null }),
 }));
 
-export const showToast =(toast:Toast)=>{ 
-    useToastStore.getState().showToast(toast);
-}
+export const showToast = (toast: Toast) => {
+  useToastStore.getState().showToast(toast);
+};

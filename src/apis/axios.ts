@@ -20,19 +20,25 @@ axiosInstance.interceptors.request.use((config) => {
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    return response.data  // 👈 removes axios wrapper
+    return response.data; // 👈 removes axios wrapper
   },
   (error) => {
-    const message =
-      error?.response?.data?.message || "Something went wrong";
+    const message = error?.response?.data?.message || "Something went wrong";
+
+    // 🔴 Check for invalid/expired token
+    if (error?.response?.status === 401) {
+      localStorage.removeItem("AI_PROJECT_TOKEN");
+
+      // redirect to login
+      window.location.href = "/login";
+    }
 
     showToast({
       type: "error",
       message,
     });
     return Promise.reject(error);
-  }
+  },
 );
-
 
 export default axiosInstance;

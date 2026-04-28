@@ -10,35 +10,32 @@ type LoginFormInputs = {
 };
 
 const Login = () => {
-  const naviagte = useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>();
 
-  const {mutate ,isPending} = useMutation({
-   mutationKey: ["login"] ,
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["login"],
     mutationFn: loginUser,
-    onSuccess:(data:any)=>{
-        
-        const token = data.data?.access_token
-        if(token)
-        localStorage.setItem("AI_PROJECT_TOKEN",token)
+    onSuccess: (data: any) => {
+      const token = data.data?.access_token;
+      if (token) localStorage.setItem("AI_PROJECT_TOKEN", token);
       showToast({
-      type: "success",
-      message: "Logged in Successfully!",
-    });
-      naviagte('/dashboard')
+        type: "success",
+        message: "Logged in Successfully!",
+      });
+      navigate("/dashboard");
     },
-    onError:(err:any)=>{
-      console.log("error",err)
-    }
-   
-  })
+    onError: (err: any) => {
+      console.log("error", err);
+    },
+  });
 
   const onSubmit = async (data: LoginFormInputs) => {
-   mutate(data)
+    mutate(data);
   };
 
   return (
@@ -47,9 +44,7 @@ const Login = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white p-6 rounded-2xl shadow-md w-full max-w-sm"
       >
-        <h2 className="text-2xl font-semibold mb-4 text-center">
-          Login
-        </h2>
+        <h2 className="text-2xl font-semibold mb-4 text-center">Login</h2>
 
         {/* Email */}
         <input
@@ -64,11 +59,7 @@ const Login = () => {
             },
           })}
         />
-        {errors.email && (
-          <p className="text-red-500 text-xs mb-2">
-            {errors.email.message}
-          </p>
-        )}
+        {errors.email && <p className="text-red-500 text-xs mb-2">{errors.email.message}</p>}
 
         {/* Password */}
         <input
@@ -83,11 +74,7 @@ const Login = () => {
             },
           })}
         />
-        {errors.password && (
-          <p className="text-red-500 text-xs mb-3">
-            {errors.password.message}
-          </p>
-        )}
+        {errors.password && <p className="text-red-500 text-xs mb-3">{errors.password.message}</p>}
 
         <button
           type="submit"
@@ -96,6 +83,16 @@ const Login = () => {
         >
           {isPending ? "Logging in..." : "Login"}
         </button>
+
+         <p className="text-sm text-center mt-4">
+          New here?{" "}
+          <span
+            className="text-blue-600 cursor-pointer hover:underline"
+            onClick={() => navigate("/signup")}
+          >
+            Create an account
+          </span>
+        </p>
       </form>
     </div>
   );

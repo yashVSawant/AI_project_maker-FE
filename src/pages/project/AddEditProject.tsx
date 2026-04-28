@@ -4,8 +4,9 @@ import Project from "./Project";
 
 const CreateNewProject = () => {
   return (
-    <div className="flex h-full w-full"><ResizableLayout leftComponent={<Project />} rightComponent={<Chat />} /></div>
-    
-    )   
-}
+    <div className="flex h-full w-full">
+      <ResizableLayout leftComponent={<Project />} rightComponent={<Chat />} />
+    </div>
+  );
+};
 export default CreateNewProject;

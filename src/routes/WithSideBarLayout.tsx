@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Sidebar from "../components/SideBar";
 
-
 const WithSideBarLayout = () => {
   return (
     <div className="flex flex-col h-screen">
