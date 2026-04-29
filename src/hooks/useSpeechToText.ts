@@ -10,8 +10,7 @@ const useSpeechToText = ({ onResult }: UseSpeechToTextProps = {}) => {
 
   const startListening = () => {
     const SpeechRecognition =
-      (window as any).SpeechRecognition ||
-      (window as any).webkitSpeechRecognition;
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
       console.error("Speech Recognition not supported");
@@ -22,8 +21,7 @@ const useSpeechToText = ({ onResult }: UseSpeechToTextProps = {}) => {
     recognition.continuous = true;
 
     recognition.onresult = (event: any) => {
-      const transcript =
-        event.results[event.results.length - 1][0].transcript;
+      const transcript = event.results[event.results.length - 1][0].transcript;
 
       // callback to component
       onResult?.(transcript);

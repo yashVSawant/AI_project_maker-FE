@@ -31,15 +31,13 @@ const ResizableLayout = ({
 
     if (newWidthPx < min || newWidthPx > max) return;
 
-    
     leftRef.current.style.width = `${newWidthPx}px`;
   };
 
   const handleMouseUp = () => {
     isDragging.current = false;
 
-   
-  document.body.style.userSelect = "auto";
+    document.body.style.userSelect = "auto";
 
     // optional: sync % back to state
     if (containerRef.current && leftRef.current) {
@@ -62,13 +60,8 @@ const ResizableLayout = ({
 
   return (
     <div ref={containerRef} className="flex h-full w-full">
-      
       {/* Left Panel */}
-      <div
-        ref={leftRef}
-        style={{ width: `${leftWidth}%` }}
-        className="h-full"
-      >
+      <div ref={leftRef} style={{ width: `${leftWidth}%` }} className="h-full">
         {leftComponent}
       </div>
 
@@ -79,9 +72,7 @@ const ResizableLayout = ({
       />
 
       {/* Right Panel */}
-      <div className="flex-1 h-full">
-        {rightComponent}
-      </div>
+      <div className="flex-1 h-full">{rightComponent}</div>
     </div>
   );
 };

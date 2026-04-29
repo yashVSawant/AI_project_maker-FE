@@ -1,14 +1,6 @@
 import { useState, useRef } from "react";
 
-const DraggableButton = ({
-  onClick,
-  Icon,
-  label,
-}: {
-  onClick: () => void;
-  Icon?: React.ReactNode;
-  label?: string;
-}) => {
+const DraggableWrapper = ({ children }: { children: any }) => {
   const [position, setPosition] = useState({
     x: window.innerWidth - 80,
     y: window.innerHeight - 80,
@@ -65,16 +57,9 @@ const DraggableButton = ({
       onMouseDown={handleMouseDown}
       className="p-3 hover:border border-blue-500 rounded-md  cursor-grab active:cursor-grabbing"
     >
-      <button
-        onMouseDown={(e: any) => e.stopPropagation()}
-        onClick={onClick}
-        className="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 shadow-lg text-white p-4 rounded-full cursor-pointer"
-      >
-        {Icon && Icon}
-        {label && <span className="ml-2">{label}</span>}
-      </button>
+      {children}
     </div>
   );
 };
 
-export default DraggableButton;
+export default DraggableWrapper;
