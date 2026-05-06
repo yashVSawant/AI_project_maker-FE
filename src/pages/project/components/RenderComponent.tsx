@@ -4,6 +4,7 @@ import { useProjectStore } from "../../../store/project.store";
 import HoverTools from "../../../components/HoverTools";
 import Rules from "./Rules";
 import Description from "./Description";
+import DeleteConfirmModal from "./DeleteConfirmModal";
 
 const VOID_ELEMENTS = ["input", "img", "br", "hr", "meta", "link"];
 
@@ -15,7 +16,7 @@ const RenderComponent = ({
   id,
   description,
   conditions = [],
-  rule,
+  rules,
 }: ComponentDTO) => {
   const Tag = type as any;
   const { conditions: projectConditions, selectedComponentId, setSelectedComponentId } = useProjectStore();
@@ -26,6 +27,7 @@ const RenderComponent = ({
 
   const [openRules, setOpenRules] = useState(false);
   const [openDescription, setOpenDescription] = useState(false);
+  const [openDeleteConfirm ,setOpenDeleteConfirm] = useState(false);
 
   // ✅ HIDDEN
   const isHidden = projectConditions.some(
@@ -67,7 +69,7 @@ const RenderComponent = ({
     disabled: isDisabled,
   };
 const handleToolClick = (
-  button: "edit" | "delete" | "close" | "rules" | "description"
+  button: "edit"|"editWithAI" | "delete" | "close" | "rules" | "description"
 ) => {
   switch (button) {
     case "edit":
@@ -76,6 +78,8 @@ const handleToolClick = (
 
     case "delete":
       // handle delete
+      setOpenDeleteConfirm(true);
+      setSelectedComponentId(null);
       break;
 
     case "close":
@@ -92,6 +96,9 @@ const handleToolClick = (
       // handle description
       setOpenDescription(true);
       setSelectedComponentId(null);
+      break;
+    case "editWithAI" :
+      //handle edit with ai
       break;
 
     default:
@@ -112,16 +119,16 @@ const handleToolClick = (
       )}
       {selectedComponentId === id && hoverRect && (
         <HoverTools
-        showValues={{rules:Boolean(rule),description:Boolean(description)}}
+       
           style={{
             position: "fixed",
             top: hoverRect.top - 25,
             left: hoverRect.left,
             zIndex: 9999,
           }}
-          onEdit={() => {}}
-          onDelete={() => {}}
-          onAI={() => {}}
+          onEdit={() => {handleToolClick("edit")}}
+          onDelete={() => {handleToolClick("delete")}}
+          onEditWithAI={() => {handleToolClick("editWithAI")}}
           onClose={() => {
             handleToolClick("close");
           }}
@@ -129,14 +136,18 @@ const handleToolClick = (
           onDescription={() => handleToolClick("description")}
         />
       )}
-      {rule && <Rules open={openRules} onClose={() => setOpenRules(false)} rules={[rule]} />}
-      {description && (
+       <Rules open={openRules} onClose={() => setOpenRules(false)} rules={rules||""} componentId={id} />
+       
         <Description
           open={openDescription}
           onClose={() => setOpenDescription(false)}
-          descriptions={[description]}
+          description={description||""}
+          componentId={id}
         />
-      )}
+        <DeleteConfirmModal open={openDeleteConfirm} onClose={()=>{
+          setOpenDeleteConfirm(false)
+        }} componentId={id}/>
+      
     </>
   );
 };

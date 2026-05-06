@@ -29,8 +29,19 @@ axiosInstance.interceptors.response.use(
     if (error?.response?.status === 401) {
       localStorage.removeItem("AI_PROJECT_TOKEN");
 
-      // redirect to login
-      window.location.href = "/login";
+       const currentPath =
+        window.location.pathname + window.location.search;
+
+
+      const isAuthPage = currentPath.startsWith("/login");
+
+      if(!isAuthPage){
+        // ✅ encode it to safely pass in URL
+        const encodedRedirect = encodeURIComponent(currentPath);
+
+        // redirect to login with redirect path
+        window.location.href = `/login?redirect=${encodedRedirect}`;
+      }
     }
 
     showToast({

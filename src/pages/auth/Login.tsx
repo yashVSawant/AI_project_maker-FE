@@ -27,7 +27,27 @@ const Login = () => {
         type: "success",
         message: "Logged in Successfully!",
       });
-      navigate("/dashboard");
+       // ✅ get redirect param
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get("redirect");
+
+      const isSafeRedirect = (path: string | null) => {
+          if (!path) return false;
+
+          // ❌ block auth routes
+          const blockedRoutes = ["/login", "/signup", "/forgot-password"];
+
+          // ❌ block external URLs (security)
+          if (path.startsWith("http")) return false;
+
+          return !blockedRoutes.some((route) => path.startsWith(route));
+        };
+
+        const finalRedirect = isSafeRedirect(redirect)
+          ? decodeURIComponent(redirect!)
+          : "/dashboard";
+
+        navigate(finalRedirect);
     },
     onError: (err: any) => {
       console.log("error", err);

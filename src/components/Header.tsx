@@ -2,10 +2,23 @@ import { ChevronLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Conditions from "../pages/project/components/Conditions";
 import { useState } from "react";
+import { useProjectStore } from "../store/project.store";
+import { useQuery } from "@tanstack/react-query";
+import { getAllInvites } from "../pages/invite/api";
 
 const Header = ({ showBack, isOpenRoute }: { showBack?: boolean; isOpenRoute?: boolean }) => {
   const navigate = useNavigate();
   const [isConditionsOpen, setIsConditionsOpen] = useState(false);
+  const {projectId} = useProjectStore();
+  const { data  } = useQuery({
+    queryKey: ["project-users", projectId],
+    queryFn: () => getAllInvites()
+  });
+
+  const isProjectRoute = window.location.pathname.includes("project");
+
+  const invitesCount = data?.data.length ||0
+
   const logoutHandler = () => {
     localStorage.removeItem("AI_PROJECT_TOKEN");
     navigate("/login");
@@ -25,15 +38,19 @@ const Header = ({ showBack, isOpenRoute }: { showBack?: boolean; isOpenRoute?: b
         <h1 className="font-bold text-2xl">AI Project Maker</h1>
       </div>
       <nav className="flex gap-3">
+        
+        {isProjectRoute&&<span className="cursor-pointer" onClick={() => setIsConditionsOpen(true)}>
+          Conditions
+        </span>}
+        {isProjectRoute && <Link to={`/members/${projectId}`}>members</Link>}
+        {invitesCount ?<Link to={"invites"}>invites {invitesCount}</Link>:<></>}
+        
         {!isOpenRoute && <Link to="/dashboard">Dashboard</Link>}
         {!isOpenRoute && (
           <Link to="/login" onClick={logoutHandler}>
             Logout
           </Link>
         )}
-        <span className="cursor-pointer" onClick={() => setIsConditionsOpen(true)}>
-          Conditions
-        </span>
       </nav>
       <Conditions isOpen={isConditionsOpen} onClose={() => setIsConditionsOpen(false)} />
     </header>
