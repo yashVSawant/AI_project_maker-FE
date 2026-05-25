@@ -40,7 +40,6 @@ const InviteUserModal = ({
         <Form.Item
           name="role"
           label="Role"
-          initialValue="USER"
           rules={[{ required: true }]}
         >
           <Select
@@ -49,6 +48,7 @@ const InviteUserModal = ({
               { label: "Editor", value: "EDITOR" },
               { label: "Admin", value: "ADMIN" },
             ]}
+            placeholder="Select user role"
           />
         </Form.Item>
       </Form>

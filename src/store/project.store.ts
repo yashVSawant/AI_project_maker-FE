@@ -7,11 +7,21 @@ type ConditionState = {
   active?: boolean;
 };
 
+export type updateComponentType = {
+  components:any[] ,
+  conditions:any[] ,
+  componentConditions:any[],
+  componentId:string , 
+  projectId:string ,
+}
+
 type ProjectState = {
   projectId: string | null;
   isEditModeOn: boolean;
   conditions: ConditionState[];
   selectedComponentId?: string | null;
+  aiUpdateComponentData : updateComponentType | null;
+  projectQueryData:any
 
   setProjectId: (id: string | null) => void;
   setEditMode: (value: boolean) => void;
@@ -20,6 +30,8 @@ type ProjectState = {
   updateConditionState: (updatedCondition: { conditionId: string; active: boolean }) => void;
   clearConditions: () => void;
   setSelectedComponentId: (id: string | null) => void;
+  setAiUpdatecomponentData:(value:updateComponentType|null)=>void;
+  setProjectQueryData:(value:any)=>void;
 
   reset: () => void;
 };
@@ -29,6 +41,8 @@ export const useProjectStore = create<ProjectState>((set) => ({
   isEditModeOn: false,
   conditions: [],
   selectedComponentId: null,
+  aiUpdateComponentData:null,
+  projectQueryData:{},
 
   setProjectId: (id) => set({ projectId: id }),
   setEditMode: (value) => set({ isEditModeOn: value }),
@@ -50,6 +64,8 @@ export const useProjectStore = create<ProjectState>((set) => ({
     })),
   clearConditions: () => set({ conditions: [] }),
   setSelectedComponentId: (id) => set({ selectedComponentId: id }),
+  setAiUpdatecomponentData:(value:updateComponentType|null)=>set({aiUpdateComponentData:value }),
+  setProjectQueryData:(value:any)=>set({projectQueryData:value}),
 
   reset: () => set({ projectId: null, isEditModeOn: false, conditions: [] }),
 }));

@@ -5,8 +5,10 @@ import { generateProject } from "../api";
 import { useMutation } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { useProjectStore } from "../../../store/project.store";
+import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
+  const navigate = useNavigate()
   const [messages, setMessages] = useState<{ text: string; isUser: boolean; time: Date }[]>([]);
   const [input, setInput] = useState("");
   const { setProjectId } = useProjectStore();
@@ -22,7 +24,11 @@ const Chat = () => {
     mutationFn: generateProject,
     onSuccess: (data) => {
       console.log(data);
-      if (data.data.projectId) setProjectId(data.data.projectId);
+      if (data.data.projectId){
+        setProjectId(data.data.projectId)
+        navigate(`/project/${data.data.projectId}/edit`)
+      } ;
+      
     },
   });
 

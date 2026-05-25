@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "./api";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../store/toast.store";
+import Button, { ButtonVariant } from "../../components/Button";
 
 type LoginFormInputs = {
   email: string;
@@ -45,7 +46,7 @@ const Login = () => {
 
         const finalRedirect = isSafeRedirect(redirect)
           ? decodeURIComponent(redirect!)
-          : "/dashboard";
+          : "/projects";
 
         navigate(finalRedirect);
     },
@@ -96,13 +97,14 @@ const Login = () => {
         />
         {errors.password && <p className="text-red-500 text-xs mb-3">{errors.password.message}</p>}
 
-        <button
+        <Button
           type="submit"
           disabled={isPending}
-          className="w-full bg-gray-700 text-white p-2 rounded-lg hover:bg-gray-900 disabled:opacity-50"
+          variant={ButtonVariant.PRIMARY}
+          className="w-full p-3 my-3"
         >
           {isPending ? "Logging in..." : "Login"}
-        </button>
+        </Button>
 
          <p className="text-sm text-center mt-4">
           New here?{" "}

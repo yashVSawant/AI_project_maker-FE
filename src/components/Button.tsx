@@ -13,13 +13,19 @@ export enum ButtonVariant {
   SECONDARY = "secondary",
   DANGER = "danger",
   GHOST = "ghost",
+  DANGER_GHOST="danger_ghost",
+  HOVER_PRIMARY="hover_primary",
+  HOVER_PRIMARY_BORDER="hover_primary_border"
 }
 
 const variantStyles = {
-  [ButtonVariant.PRIMARY]: "bg-blue-500 hover:bg-blue-600 text-white",
-  [ButtonVariant.SECONDARY]: "bg-gray-200 hover:bg-gray-300 text-gray hover:text-black",
+  [ButtonVariant.PRIMARY]: "bg-gradient-to-r from-primary to-primary-dark hover:opacity-80 transition-all text-black shadow-md shadow-primary-100",
+  [ButtonVariant.HOVER_PRIMARY]:"border-gay-100 hover:bg-primary shadow-md shadow-primary-100",
+  [ButtonVariant.HOVER_PRIMARY_BORDER]:"border-gray-100 hover:border-gray-900 hover:bg-primary-100 shadow-md shadow-primary-100 border-2 border-primary",
+  [ButtonVariant.SECONDARY]: "bg-primary-100 border border-2 border-primary-500 hover:opacity-80 transition-all text-black shadow-md shadow-primary-100",
   [ButtonVariant.DANGER]: "bg-red-500 hover:bg-red-600 text-white",
-  [ButtonVariant.GHOST]: "bg-transparent hover:bg-gray-100 text-gray hover:text-black",
+  [ButtonVariant.GHOST]: "bg-gradient-to-r from-primary-100 to-primary-light hover:opacity-80 transition-all text-black shadow-md shadow-primary-100",
+  [ButtonVariant.DANGER_GHOST]:"bg-gradient-to-r from-primary-light to-primary hover:bg-red-50 text-black hover:text-danger transition-all"
 };
 
 const Button = ({
@@ -41,7 +47,7 @@ const Button = ({
       disabled={disabled}
       className={`
         flex items-center justify-center gap-2
-        px-4 py-1 pb-2 rounded-lg text-sm font-medium
+        px-4 py-2 text-center pb-3 rounded-lg text-sm font-medium
         transition duration-200 text-center leading-none
         cursor-pointer
         ${variantStyles[variant]}

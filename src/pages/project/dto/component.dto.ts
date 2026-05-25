@@ -8,6 +8,7 @@ export interface ComponentDTO {
   description?: string;
   conditions: any[];
   rules?: string;
+  style?:any;
 }
 
 type UnsafeTags = "script" | "iframe" | "style" | "link" | "meta" | "object" | "embed";

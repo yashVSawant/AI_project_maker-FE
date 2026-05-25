@@ -38,6 +38,7 @@ function CommonTable<T extends object>({
 
   return (
     <Table
+    className="custom-table"
       columns={mappedColumns}
       dataSource={data}
       loading={loading}

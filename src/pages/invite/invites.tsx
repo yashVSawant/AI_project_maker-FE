@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getAllInvites, acceptInvite, rejectInvite } from "./api";
 import { useNavigate } from "react-router-dom";
+import PageWrapper from "../../wrappers/PageWrapper";
 
 const InviteListPage = () => {
   const queryClient = useQueryClient();
@@ -46,8 +47,9 @@ const InviteListPage = () => {
   }
 
   return (
-    <div className="w-full h-full bg-gray-100 p-6">
-      <h2 className="text-2xl font-semibold mb-6">My Invites</h2>
+    <PageWrapper title="My Invites" showBack={false}>
+    <div className="w-full h-full p-3">
+      {/* <h2 className="text-2xl font-semibold mb-6">My Invites</h2> */}
 
       <div className="space-y-4">
         {invites.map((invite: any) => {
@@ -56,7 +58,7 @@ const InviteListPage = () => {
           return (
             <div
               key={invite.id}
-              className="bg-white p-5 rounded-xl shadow-sm border flex justify-between items-center"
+              className="bg-white p-5 rounded-xl shadow-sm border border-primary flex justify-between items-center"
             >
               {/* Left */}
               <div>
@@ -121,6 +123,7 @@ const InviteListPage = () => {
         })}
       </div>
     </div>
+    </PageWrapper>
   );
 };
 

@@ -1,23 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import RenderComponent from "./components/RenderComponent";
 import { getProject } from "./api";
-import { useNavigate, useParams } from "react-router-dom";
-import DraggableButton from "../../components/DragableButton";
-import { Pencil } from "lucide-react";
+import {   useParams } from "react-router-dom";
 import { useProjectStore } from "../../store/project.store";
 import { useEffect } from "react";
 import { extractConditions } from "../../utils/data.helper";
+import ConfirmComponentUpdate from "./components/ConfirmComponentUpdate";
+import ComponentEditorSpace from "../projectEditor/ComponentEditorSpace";
 
 const Project = () => {
-  const { id, editId } = useParams();
-  const navigate = useNavigate();
-  const { projectId, addConditions, clearConditions } = useProjectStore();
+  const { projectId } = useParams();
+  const { projectId:id, addConditions, clearConditions ,setProjectQueryData } = useProjectStore();
+  
 
-  const isEditMode = Boolean(!id); // If there's an id, we're in view mode, otherwise it's edit mode
-  const currentProjectId = id || editId || projectId;
+  const currentProjectId = projectId  || id;
   const { data, isFetching } = useQuery({
     queryKey: ["projects", currentProjectId],
-    queryFn: () => getProject(currentProjectId!),
+    queryFn: () => getProject(currentProjectId!).then((data)=>{
+      setProjectQueryData(data);
+      return data;
+    }),
     enabled: Boolean(currentProjectId),
   });
 
@@ -34,18 +36,19 @@ const Project = () => {
 
   return (
     <div className="w-full h-full bg-gray-200">
+      <div className="flex w-full  justify-between ">
+        <div className="w-full overflow-auto">
       {isFetching || !compoents ? (
         <div>Loading...</div>
       ) : (
         compoents.map((c) => <RenderComponent {...c} key={c.id} />)
       )}
-      {!isEditMode && (
-        <DraggableButton
-          Icon={<Pencil size={20} />}
-          onClick={() => navigate(`/edit/project/${currentProjectId}`)}
-        />
-      )}
+      </div>
+      <ComponentEditorSpace/>
+      </div>
+     <ConfirmComponentUpdate/>
     </div>
+    
   );
 };
 export default Project;

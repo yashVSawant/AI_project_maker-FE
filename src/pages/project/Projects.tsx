@@ -9,7 +9,7 @@ import {
 import { getProjects } from "../project/api";
 import { useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+const Projects = () => {
   const navigate = useNavigate();
 
   const { data, isFetching } = useQuery({
@@ -45,7 +45,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-8 min-h-screen bg-[#fffbeb]">
+    <div className="p-8 min-h-screen">
       {/* HEADER */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-gray-800">
@@ -174,4 +174,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Projects;

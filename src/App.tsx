@@ -20,14 +20,14 @@ function App() {
         <Route
           path="/"
           element={
-            isLoggedIn() ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />
+            isLoggedIn() ? <Navigate to="/projects" replace /> : <Navigate to="/login" replace />
           }
         />
         ,
         {pagesRoutes.map((route, index) => {
           if (route.permission !== "auth" || route.sideBar === false) {
             return (
-              <Route element={<WithoutSideBarLayout isOpenRoute={route.permission !== "auth"} />}>
+              <Route element={<WithoutSideBarLayout  />}>
                 <Route key={index} path={route.path} element={<route.element />} />
               </Route>
             );
