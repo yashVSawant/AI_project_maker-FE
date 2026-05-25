@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
 
-const DraggableWrapper = ({ children }: { children: any }) => {
+const DraggableWrapper = ({ children ,positionXY = {x:10 ,y:10}}: { children: any ,positionXY?:{x:number,y:number}}) => {
   const [position, setPosition] = useState({
-    x: window.innerWidth - 80,
-    y: window.innerHeight - 80,
+    x: positionXY.x,
+    y: positionXY.y,
   });
 
   const offset = useRef({ x: 0, y: 0 });
@@ -55,7 +55,7 @@ const DraggableWrapper = ({ children }: { children: any }) => {
         zIndex: 100,
       }}
       onMouseDown={handleMouseDown}
-      className="p-3 hover:border border-blue-500 rounded-md  cursor-grab active:cursor-grabbing"
+      className="p-3 hover:border border-primary-500 bg-white rounded-md  cursor-grab active:cursor-grabbing"
     >
       {children}
     </div>

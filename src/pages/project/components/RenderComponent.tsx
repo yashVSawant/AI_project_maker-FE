@@ -5,8 +5,10 @@ import HoverTools from "../../../components/HoverTools";
 import Rules from "./Rules";
 import Description from "./Description";
 import DeleteConfirmModal from "./DeleteConfirmModal";
+import AIEditModal from "./AIEditModal";
+import { useNavigate, useParams } from "react-router-dom";
 
-const VOID_ELEMENTS = ["input", "img", "br", "hr", "meta", "link"];
+const VOID_ELEMENTS = ["input", "img", "br", "hr", "meta", "link","textarea"];
 
 const RenderComponent = ({
   type,
@@ -17,9 +19,12 @@ const RenderComponent = ({
   description,
   conditions = [],
   rules,
+  style,
 }: ComponentDTO) => {
+  const navigate = useNavigate();
+  const{ projectId } = useParams();
   const Tag = type as any;
-  const { conditions: projectConditions, selectedComponentId, setSelectedComponentId } = useProjectStore();
+  const { conditions: projectConditions, selectedComponentId, setSelectedComponentId ,aiUpdateComponentData } = useProjectStore();
 
   const [isHovered, setIsHovered] = useState(false);
   const [hoverRect, setHoverRect] = useState<DOMRect | null>(null);
@@ -28,6 +33,7 @@ const RenderComponent = ({
   const [openRules, setOpenRules] = useState(false);
   const [openDescription, setOpenDescription] = useState(false);
   const [openDeleteConfirm ,setOpenDeleteConfirm] = useState(false);
+  const [openAIEdit ,setOpenAIEdit] = useState(false);
 
   // ✅ HIDDEN
   const isHidden = projectConditions.some(
@@ -48,10 +54,12 @@ const RenderComponent = ({
   );
   const commonProps = {
     "data-id": id,
+    ...(Tag === "button" ? { type: "button" } : {}),
     onClick: (e: any) => {
       e.stopPropagation();
       setSelectedComponentId(id);
     },
+    style,
     onMouseOver: (e: any) => {
       e.stopPropagation();
       setIsHovered(true);
@@ -74,6 +82,7 @@ const handleToolClick = (
   switch (button) {
     case "edit":
       // handle edit
+      navigate(`/project/${projectId}/${id}`);
       break;
 
     case "delete":
@@ -99,6 +108,8 @@ const handleToolClick = (
       break;
     case "editWithAI" :
       //handle edit with ai
+      setOpenAIEdit(true);
+      setSelectedComponentId(null);
       break;
 
     default:
@@ -117,7 +128,7 @@ const handleToolClick = (
           ))}
         </Tag>
       )}
-      {selectedComponentId === id && hoverRect && (
+      {!aiUpdateComponentData && selectedComponentId === id && hoverRect && (
         <HoverTools
        
           style={{
@@ -136,17 +147,23 @@ const handleToolClick = (
           onDescription={() => handleToolClick("description")}
         />
       )}
-       <Rules open={openRules} onClose={() => setOpenRules(false)} rules={rules||""} componentId={id} />
+       {/* <Rules open={openRules} onClose={() => setOpenRules(false)} rules={rules||""} componentId={id} />
        
         <Description
           open={openDescription}
           onClose={() => setOpenDescription(false)}
           description={description||""}
           componentId={id}
-        />
+        /> */}
         <DeleteConfirmModal open={openDeleteConfirm} onClose={()=>{
           setOpenDeleteConfirm(false)
         }} componentId={id}/>
+
+        {/* <AIEditModal open={openAIEdit} onClose={()=>{
+          setOpenAIEdit(false)
+        }}
+        componentId={id}
+        /> */}
       
     </>
   );

@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import React, { Fragment, useRef } from "react";
 import type { ReactNode } from "react";
 import classNames from "classnames";
+import Button, { ButtonVariant } from "./Button";
 
 interface ModalProps {
   open: boolean;
@@ -158,24 +159,26 @@ export const FooterButton: React.FC<FooterButtonProps> = ({
   onLeftButtonClick,
   onRightButtonClick,
 }) => (
-  <div className="sm:flex sm:flex-row-reverse">
+  <div className="sm:flex sm:flex-row-reverse gap-2">
     {rightButtonTitle && (
-      <button
+      <Button
         type="button"
-        className={`inline-flex w-full justify-center rounded-md  bg-primary px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-buttonBg sm:ml-5 sm:w-auto ${rightButtonClassName}`}
+        className={`p-2 ${rightButtonClassName}`}
         onClick={onRightButtonClick}
+        variant={ButtonVariant.PRIMARY}
       >
         {rightButtonTitle}
-      </button>
+      </Button>
     )}
     {leftButtonTitle && (
-      <button
+      <Button
         type="button"
-        className={`flex items-center mt-2 w-full justify-center rounded-md bg-lightGrayBg px-7 py-2 text-sm font-semibold text-subHeader shadow-sm ring-1 ring-inset ring-lightGrayBg hover:bg-lightGrayBg sm:mt-0 sm:w-auto ${leftButtonClassName}`}
+        className={`p-2 ${leftButtonClassName}`}
         onClick={onLeftButtonClick}
+        variant={ButtonVariant.DANGER}
       >
         {leftButtonTitle}
-      </button>
+      </Button>
     )}
   </div>
 );

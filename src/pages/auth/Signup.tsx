@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { signupUser } from "./api"; // ✅ change this
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../store/toast.store";
+import Button, { ButtonVariant } from "../../components/Button";
 
 type SignupFormInputs = {
   email: string;
@@ -36,7 +37,7 @@ const Signup = () => {
         message: "Account created successfully!",
       });
 
-      navigate("/dashboard");
+      navigate("/projects");
     },
     onError: (err: any) => {
       showToast({
@@ -134,13 +135,14 @@ const Signup = () => {
           </p>
         )}
 
-        <button
+        <Button
           type="submit"
           disabled={isPending}
-          className="w-full bg-gray-700 text-white p-2 rounded-lg hover:bg-gray-900 disabled:opacity-50"
+          className="w-full p-3 my-3"
+          variant={ButtonVariant.PRIMARY}
         >
           {isPending ? "Signing up..." : "Sign Up"}
-        </button>
+        </Button>
 
         <p className="text-sm text-center mt-4">
           Already have an account?{" "}

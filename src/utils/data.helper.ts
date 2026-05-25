@@ -80,3 +80,76 @@ export const removeComponentFromTree = (
       return node;
     });
 };
+
+export const replaceSubtreeInTree = (
+  nodes: any[],
+  targetId: string,
+  newSubtree: any
+): any[] => {
+  return nodes.map((node) => {
+    // 🎯 Replace entire node
+    if (node.id === targetId) {
+      debugger
+      return newSubtree;
+    }
+
+    // 🔁 Traverse children
+    if (node.children && node.children.length > 0) {
+      return {
+        ...node,
+        children: replaceSubtreeInTree(
+          node.children,
+          targetId,
+          newSubtree
+        )
+      };
+    }
+
+    return node;
+  });
+};
+
+export const getComponentTreeInTree = (
+  nodes: any[],
+  targetId: string,
+): any => {
+  for (const node of nodes) {
+    // ✅ Found node
+    if (node.id === targetId) {
+      return node;
+    }
+
+    // ✅ Search children recursively
+    if (node.children?.length) {
+      const found = getComponentTreeInTree(
+        node.children,
+        targetId,
+      );
+
+      if (found) {
+        return found;
+      }
+    }
+  }
+
+  return null;
+};
+
+
+export const generateUpdatedClassName = ({
+  existingClassName,
+  selectedClasses,
+}: {
+  existingClassName?: string;
+  selectedClasses: Record<string, string>;
+}) => {
+  const existing = existingClassName?.split(" ") || [];
+
+  const selectedValues = Object.values(selectedClasses);
+
+  const filteredExisting = existing.filter(
+    (cls) => !selectedValues.includes(cls)
+  );
+
+  return [...filteredExisting, ...selectedValues].join(" ").trim();
+};

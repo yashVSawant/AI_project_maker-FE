@@ -2,7 +2,7 @@ import axios from "axios";
 import { showToast } from "../store/toast.store";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000", // your backend URL
+  baseURL: import.meta.env.VITE_BACKEND_URL, // your backend URL
   timeout: 30000,
   headers: {
     "Content-Type": "application/json",

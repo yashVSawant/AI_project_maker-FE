@@ -1,28 +1,15 @@
 import { ChevronLeft } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Conditions from "../pages/project/components/Conditions";
 import { useState } from "react";
-import { useProjectStore } from "../store/project.store";
-import { useQuery } from "@tanstack/react-query";
-import { getAllInvites } from "../pages/invite/api";
 
-const Header = ({ showBack, isOpenRoute }: { showBack?: boolean; isOpenRoute?: boolean }) => {
+
+const Header = ({ showBack }: { showBack?: boolean }) => {
   const navigate = useNavigate();
+  const { projectId } = useParams();
   const [isConditionsOpen, setIsConditionsOpen] = useState(false);
-  const {projectId} = useProjectStore();
-  const { data  } = useQuery({
-    queryKey: ["project-users", projectId],
-    queryFn: () => getAllInvites()
-  });
 
-  const isProjectRoute = window.location.pathname.includes("project");
 
-  const invitesCount = data?.data.length ||0
-
-  const logoutHandler = () => {
-    localStorage.removeItem("AI_PROJECT_TOKEN");
-    navigate("/login");
-  };
 
   return (
     <header className="h-[60px] shadow sticky top-0 z-50 bg-gray-700 flex items-center justify-between px-4 text-white">
@@ -39,18 +26,10 @@ const Header = ({ showBack, isOpenRoute }: { showBack?: boolean; isOpenRoute?: b
       </div>
       <nav className="flex gap-3">
         
-        {isProjectRoute&&<span className="cursor-pointer" onClick={() => setIsConditionsOpen(true)}>
+        {projectId&&<span className="cursor-pointer" onClick={() => setIsConditionsOpen(true)}>
           Conditions
         </span>}
-        {isProjectRoute && <Link to={`/members/${projectId}`}>members</Link>}
-        {invitesCount ?<Link to={"invites"}>invites {invitesCount}</Link>:<></>}
-        
-        {!isOpenRoute && <Link to="/dashboard">Dashboard</Link>}
-        {!isOpenRoute && (
-          <Link to="/login" onClick={logoutHandler}>
-            Logout
-          </Link>
-        )}
+        {projectId && <Link to={`/members/${projectId}`}>members</Link>}
       </nav>
       <Conditions isOpen={isConditionsOpen} onClose={() => setIsConditionsOpen(false)} />
     </header>

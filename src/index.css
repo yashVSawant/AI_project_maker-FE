@@ -3,5 +3,37 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #444f65;
+  /* background-color: #f9f7f2 */
+  background-color: #fffdf7;
+}
+
+@theme {
+  --color-primary-100: #fef3c7; /* amber-100 */
+  --color-primary-light: #fde68a; /* amber-200 */
+  --color-primary: #fcd34d;       /* amber-300 */
+  --color-primary-dark: #fbbf24;  /* amber-400 */
+  --color-primary-500: #f59e0b; /* amber-500 */
+  --color-danger: #ef4444;
+}
+
+.custom-table .ant-table {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.custom-table .ant-table-thead > tr > th:first-child {
+  border-top-left-radius: 18px;
+}
+
+.custom-table .ant-table-thead > tr > th:last-child {
+  border-top-right-radius: 18px;
+}
+
+.custom-table .ant-table-thead > tr > th {
+  background-color:#fef3c7 !important;
+}
+
+
+.custom-table .ant-table-tbody > tr:hover > td {
+  background: #fee49d !important;
 }

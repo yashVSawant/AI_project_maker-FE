@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { Button, Tag, Space, Avatar, Typography, Modal } from "antd";
+import {  Tag, Space, Avatar, Typography, Modal } from "antd";
 import { CrownOutlined, UserOutlined } from "@ant-design/icons";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import InviteUserModal from "./InviteUserModal";
 import CommonTable from "../../components/Table";
 import { showToast } from "../../store/toast.store";
 import {  getProjectUsers, inviteUsers, removeUser } from "./api";
-import { useProjectStore } from "../../store/project.store";
 import { useParams } from "react-router-dom";
+import PageWrapper from "../../wrappers/PageWrapper";
+import Button, { ButtonVariant } from "../../components/Button";
 
 const { Text } = Typography;
 
@@ -17,6 +18,7 @@ type UserItem = {
   name?: string | null;
   role: string;
   isOwner?: boolean;
+  isSelf?:boolean
 };
 
 const ProjectMembers = () => {
@@ -32,7 +34,6 @@ const ProjectMembers = () => {
   });
 
   const users = data?.data;
-  console.log(users)
 
   // ✅ Invite user
   const { mutate: inviteUser, isPending: inviteLoading } = useMutation({
@@ -139,7 +140,7 @@ const ProjectMembers = () => {
           <Space>
             {isPending && (
               <Button
-                size="small"
+                variant={ButtonVariant.SECONDARY}
                 onClick={() => {
                   projectId &&
                   inviteUser({email:record.email , role:record.role , projectId})
@@ -149,13 +150,12 @@ const ProjectMembers = () => {
               </Button>
             )}
 
-            <Button
-              danger
-              size="small"
+            {!record.isSelf && <Button
+              variant={ButtonVariant.DANGER}
               onClick={() => handleRemove(record)}
             >
               Remove
-            </Button>
+            </Button>}
           </Space>
         );
       },
@@ -165,13 +165,14 @@ const ProjectMembers = () => {
   if(!users) return <div>loading...</div>
 
   return (
-    <div className="p-20 bg-gray-200 w-full h-full">
+    <PageWrapper title="Project Member"  showBack={false}>
+    <div className="p-3 w-full h-full">
       {/* Header */}
-      <div className="flex justify-between mb-16"
+      <div className="flex justify-end mb-5"
       >
-        <h2 className="">Project Members</h2>
+        {/* <h2 className="">Project Members</h2> */}
 
-        <Button type="primary" onClick={() => setInviteOpen(true)}>
+        <Button variant={ButtonVariant.PRIMARY} onClick={() => setInviteOpen(true)}>
           Invite User
         </Button>
       </div>
@@ -194,6 +195,7 @@ const ProjectMembers = () => {
         loading={inviteLoading}
       />
     </div>
+    </PageWrapper>
   );
 };
 
