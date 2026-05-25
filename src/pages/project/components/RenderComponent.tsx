@@ -22,7 +22,7 @@ const RenderComponent = ({
   style,
 }: ComponentDTO) => {
   const navigate = useNavigate();
-  const{ projectId } = useParams();
+  const{ projectId ,componentId} = useParams();
   const Tag = type as any;
   const { conditions: projectConditions, selectedComponentId, setSelectedComponentId ,aiUpdateComponentData } = useProjectStore();
 
@@ -72,7 +72,7 @@ const RenderComponent = ({
     },
     className: `${className} ${
       isHovered ? "relative outline outline-1 outline-blue-500" : ""
-    } ${selectedComponentId === id ? "ring-2 ring-red-600" : ""}`,
+    } ${selectedComponentId === id || componentId === id ? "ring-2 ring-red-600" : ""}`,
     title: description,
     disabled: isDisabled,
   };
@@ -83,6 +83,7 @@ const handleToolClick = (
     case "edit":
       // handle edit
       navigate(`/project/${projectId}/${id}`);
+      setSelectedComponentId(null)
       break;
 
     case "delete":
