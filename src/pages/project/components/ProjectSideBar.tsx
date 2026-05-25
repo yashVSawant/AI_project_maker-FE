@@ -28,7 +28,7 @@ const ProjectSidebar = () => {
     {
       id: "project",
       icon: Layers3,
-      route: `project/${projectId}`,
+      route: `project/${projectId}/edit`,
       label: "Project",
     },
     {
