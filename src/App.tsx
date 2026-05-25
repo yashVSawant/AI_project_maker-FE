@@ -25,7 +25,7 @@ function App() {
         />
         ,
         {pagesRoutes.map((route, index) => {
-          if (route.permission !== "auth" || route.sideBar === false) {
+          if (route.permission !== "auth" ) {
             return (
               <Route element={<WithoutSideBarLayout  />}>
                 <Route key={index} path={route.path} element={<route.element />} />

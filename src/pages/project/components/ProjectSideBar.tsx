@@ -1,8 +1,6 @@
 import {
-  LayoutPanelLeft,
   Users,
   ShieldCheck,
-  Sparkles,
   Settings,
   Layers3,
   Workflow,
