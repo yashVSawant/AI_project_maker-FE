@@ -1,4 +1,4 @@
-import React, {
+import  {
   useEffect,
   useMemo,
   useState,
@@ -17,9 +17,7 @@ import {
 
 import { tailwindOptions } from "./data/editData";
 
-import Button, {
-  ButtonVariant,
-} from "../../components/Button";
+import Button from "../../components/Button";
 
 import {
   getComponentData,

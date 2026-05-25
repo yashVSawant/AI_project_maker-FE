@@ -1,11 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getAllInvites, acceptInvite, rejectInvite } from "./api";
-import { useNavigate } from "react-router-dom";
 import PageWrapper from "../../wrappers/PageWrapper";
 
 const InviteListPage = () => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const { data, isLoading } = useQuery({
     queryKey: ["my-invites"],

@@ -5,7 +5,6 @@ import Signup from "../../pages/auth/Signup";
 import ProjectMembers from "../../pages/invite/ProjectMembers";
 import InviteListPage from "../../pages/invite/invites";
 import Projects from "../../pages/project/Projects";
-import ComponentEditorSpace from "../../pages/projectEditor/ComponentEditorSpace";
 
 const pagesRoutes = [
   { path: "/projects", element: Projects, permission: "auth" },

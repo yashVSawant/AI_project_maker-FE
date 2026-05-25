@@ -5,17 +5,14 @@ const HoverTools = ({
   
   onEdit,
   onDelete,
-  onEditWithAI,
   onClose,
-  onRules,
-  onDescription,
   style,
 }: {
   onEdit: () => void;
   onDelete: () => void;
-  onRules: () => void;
-  onDescription: () => void;
-  onEditWithAI: () => void;
+  // onRules: () => void;
+  // onDescription: () => void;
+  // onEditWithAI: () => void;
   onClose: () => void;
   style?: React.CSSProperties;
 }) => {

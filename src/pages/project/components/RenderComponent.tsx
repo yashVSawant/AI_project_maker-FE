@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import type { ComponentDTO } from "../dto/component.dto";
 import { useProjectStore } from "../../../store/project.store";
 import HoverTools from "../../../components/HoverTools";
-import Rules from "./Rules";
-import Description from "./Description";
 import DeleteConfirmModal from "./DeleteConfirmModal";
-import AIEditModal from "./AIEditModal";
 import { useNavigate, useParams } from "react-router-dom";
 
 const VOID_ELEMENTS = ["input", "img", "br", "hr", "meta", "link","textarea"];
@@ -18,7 +15,6 @@ const RenderComponent = ({
   id,
   description,
   conditions = [],
-  rules,
   style,
 }: ComponentDTO) => {
   const navigate = useNavigate();
@@ -30,10 +26,10 @@ const RenderComponent = ({
   const [hoverRect, setHoverRect] = useState<DOMRect | null>(null);
   // const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const [openRules, setOpenRules] = useState(false);
-  const [openDescription, setOpenDescription] = useState(false);
+  // const [openRules, setOpenRules] = useState(false);
+  // const [openDescription, setOpenDescription] = useState(false);
   const [openDeleteConfirm ,setOpenDeleteConfirm] = useState(false);
-  const [openAIEdit ,setOpenAIEdit] = useState(false);
+  // const [openAIEdit ,setOpenAIEdit] = useState(false);
 
   // ✅ HIDDEN
   const isHidden = projectConditions.some(
@@ -96,22 +92,22 @@ const handleToolClick = (
       setSelectedComponentId(null)
       break;
 
-    case "rules":
-      // handle rules
-      setOpenRules(true);
-      setSelectedComponentId(null);
-      break;
+    // case "rules":
+    //   // handle rules
+    //   setOpenRules(true);
+    //   setSelectedComponentId(null);
+    //   break;
 
-    case "description":
-      // handle description
-      setOpenDescription(true);
-      setSelectedComponentId(null);
-      break;
-    case "editWithAI" :
-      //handle edit with ai
-      setOpenAIEdit(true);
-      setSelectedComponentId(null);
-      break;
+    // case "description":
+    //   // handle description
+    //   setOpenDescription(true);
+    //   setSelectedComponentId(null);
+    //   break;
+    // case "editWithAI" :
+    //   //handle edit with ai
+    //   setOpenAIEdit(true);
+    //   setSelectedComponentId(null);
+    //   break;
 
     default:
       break;
@@ -140,12 +136,12 @@ const handleToolClick = (
           }}
           onEdit={() => {handleToolClick("edit")}}
           onDelete={() => {handleToolClick("delete")}}
-          onEditWithAI={() => {handleToolClick("editWithAI")}}
+          // onEditWithAI={() => {handleToolClick("editWithAI")}}
           onClose={() => {
             handleToolClick("close");
           }}
-          onRules={() => handleToolClick("rules")}
-          onDescription={() => handleToolClick("description")}
+          // onRules={() => handleToolClick("rules")}
+          // onDescription={() => handleToolClick("description")}
         />
       )}
        {/* <Rules open={openRules} onClose={() => setOpenRules(false)} rules={rules||""} componentId={id} />

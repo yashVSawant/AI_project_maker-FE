@@ -1,11 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import {
-  Sparkles,
   FolderOpen,
   Users,
-  LayoutTemplate,
-  Bot,
-  Plug,
   LogOut,
   Plus,
   Workflow,

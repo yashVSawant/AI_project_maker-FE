@@ -10,7 +10,7 @@ const ConfirmComponentUpdate = ()=>{
     const {mutate:updateComponentsMutate , isPending:isPendingUpdateComponents} = useMutation({
     mutationKey:["generate-componet"],
     mutationFn:( data:updateComponentType)=>updateComponents(data.projectId,data.componentId , data),
-    onSuccess:(data)=>{
+    onSuccess:()=>{
       // console.log(data);
       // queryClient.invalidateQueries({queryKey:["projects"]});
           //   queryClient.setQueryData(["projects",projectId],(oldData:any)=>{
