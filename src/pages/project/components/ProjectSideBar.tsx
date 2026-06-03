@@ -3,7 +3,6 @@ import {
   ShieldCheck,
   Settings,
   Layers3,
-  Workflow,
   Home,
 } from "lucide-react";
 import { useState } from "react";
@@ -67,9 +66,9 @@ const ProjectSidebar = () => {
       <div>
         {/* LOGO */}
         <div className="flex justify-center mb-6">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-primary-dark to-primary-500 flex items-center justify-center shadow-md">
-            <Workflow size={20} className="text-white" />
-          </div>
+          {/* <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-primary-dark to-primary-500 flex items-center justify-center shadow-md"> */}
+            <img src="/favicon.ico" alt="Logo" className="w-20 h-10" />
+          {/* </div> */}
         </div>
 
         {/* BACK BUTTON */}
