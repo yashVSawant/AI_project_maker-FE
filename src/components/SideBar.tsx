@@ -12,6 +12,7 @@ import { useProjectStore } from "../store/project.store";
 import Button, { ButtonVariant } from "./Button";
 import ConfirmationModal from "./ConfirmationModal";
 import { useState } from "react";
+import { getUserData } from "../pages/dashboard/api";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -23,6 +24,13 @@ const Sidebar = () => {
     queryKey: ["project-users"],
     queryFn: () => getAllInvites(),
   });
+
+  const { data: userData } = useQuery({
+    queryKey: ["user-data"],
+    queryFn: () => getUserData(),
+  });
+
+  console.log("User Data: ", userData?.data);
 
   const invitesCount =
     invitesData?.data?.filter((i: any) => i.status !== "ACCEPTED").length || 0;
@@ -166,11 +174,11 @@ const Sidebar = () => {
 
           <div className="flex-1 overflow-hidden">
             <h4 className="text-sm font-semibold text-gray-800 truncate">
-              example name
+              {userData?.data?.name || ""}
             </h4>
 
             <p className="text-xs text-gray-400 truncate">
-              email@example.com
+              {userData?.data?.email || ""}
             </p>
           </div>
         </div>
@@ -184,16 +192,14 @@ const Sidebar = () => {
         >
           <span className="font-medium">Logout</span>
         </Button>
-        <div className="flex items-center gap-3 px-2 mb-4">
+        {/* <div className="flex items-center gap-3 px-2 mb-4">
 
           <div className="flex-1 overflow-hidden">
-            
-
             <p className="text-xs text-gray-400 truncate">
               support@example.com
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
       <ConfirmationModal
        open={openSignOutConfirm} 

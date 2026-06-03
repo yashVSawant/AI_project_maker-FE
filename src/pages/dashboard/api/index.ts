@@ -20,3 +20,7 @@ export const updateSingleComponentManually = async (projectId: string , componen
 export const getComponentData = async (componentId:string)=>{
   return await axiosInstance.get(`project/component/${componentId}`)
 }
+
+export const getUserData = async ()=>{
+  return await axiosInstance.get("user/me")
+}
