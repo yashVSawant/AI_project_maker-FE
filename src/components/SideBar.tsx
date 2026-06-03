@@ -4,7 +4,6 @@ import {
   Users,
   LogOut,
   Plus,
-  Workflow,
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAllInvites } from "../pages/invite/api";
