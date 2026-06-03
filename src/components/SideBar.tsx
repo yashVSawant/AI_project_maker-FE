@@ -85,17 +85,18 @@ const Sidebar = () => {
       {/* TOP */}
       <div>
         {/* LOGO */}
-        <div className="flex items-start gap-2 px-2 mb-8">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-dark to-primary-500 flex items-center justify-center shadow-md">
-            <Workflow size={18} className="text-white" />
-          </div>
+        <div className="flex flex-col items-start gap-2 px-2 mb-8">
+          {/* <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-dark to-primary-500 flex items-center justify-center shadow-md"> */}
+            {/* <Workflow size={18} className="text-white" /> */}
+            <img src="/favicon.ico" alt="Logo" className="w-20 h-10" />
+          {/* </div> */}
 
           <div>
-            <h2 className="text-[15px] font-semibold text-gray-800">
+            {/* <h2 className="text-[15px] font-semibold text-gray-800">
+              FloJect
+            </h2> */}
+            <p className="text-[11px] text-gray-600">
               AI Powered Project Flow Maker
-            </h2>
-            <p className="text-[11px] text-gray-400">
-              Build faster with AI
             </p>
           </div>
         </div>
